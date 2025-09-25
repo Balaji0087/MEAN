@@ -1,0 +1,49 @@
+app.html:
+<h2>Parent Component</h2>
+
+<!-- Text box to type child response -->
+<input type="text" [(ngModel)]="msg" placeholder="Enter response" />
+
+<!-- Send data to parent on button click -->
+<button (click)="sendtoChild()">Send to child</button>
+
+<!-- Display child response -->
+<p><strong>Child says:</strong> {{ childmsg }}</p>
+<!-- Input to child -->
+<app-children
+  [fromparentmsg]="messagetochild"
+  (sendchildmsg)="onChildResponse($event)">
+</app-children>
+
+app.ts:
+ messagetochild = '';
+  childmsg = '';
+  msg='';
+  sendtoChild() {
+    this.messagetochild=this.msg; 
+  }
+  onChildResponse(data: string) {
+    this.childmsg = data;
+  }
+
+children.html:
+<h2>Child Component</h2>
+
+<!-- Display message from parent -->
+<p><strong>Message from Parent:</strong> {{ fromparentmsg }}</p>
+
+<!-- Text box to type child response -->
+<input type="text" [(ngModel)]="childInput" placeholder="Enter response" />
+
+<!-- Send data to parent on button click -->
+<button (click)="sendtoParent()">Send to Parent</button>
+
+children.ts:
+@Input() fromparentmsg: string = '';
+  @Output() sendchildmsg = new EventEmitter<string>();
+  
+  childInput: string = '';
+
+  sendtoParent() {
+    this.sendchildmsg.emit(this.childInput);
+  }

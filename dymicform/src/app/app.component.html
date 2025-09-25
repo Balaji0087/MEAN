@@ -1,0 +1,85 @@
+<div class="container mt-4" style="max-width: 500px;">
+  <h2 class="mb-3">Student Registration Form</h2>
+
+  <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+    <!-- Full Name -->
+    <div class="mb-3">
+      <label>Full Name</label>
+      <input type="text" class="form-control" formControlName="fullName" />
+      <div class="text-danger" *ngIf="studentForm.get('fullName')?.touched && studentForm.get('fullName')?.invalid">
+        <small *ngIf="studentForm.get('fullName')?.errors?.['required']">Full Name is required</small>
+        <small *ngIf="studentForm.get('fullName')?.errors?.['minlength']">At least 3 characters</small>
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="mb-3">
+      <label>Email</label>
+      <input type="email" class="form-control" formControlName="email" />
+      <div class="text-danger" *ngIf="studentForm.get('email')?.touched && studentForm.get('email')?.invalid">
+        <small *ngIf="studentForm.get('email')?.errors?.['required']">Email is required</small>
+        <small *ngIf="studentForm.get('email')?.errors?.['email']">Enter a valid email</small>
+      </div>
+    </div>
+
+    <!-- Age -->
+    <div class="mb-3">
+      <label>Age</label>
+      <input type="number" class="form-control" formControlName="age" />
+      <div class="text-danger" *ngIf="studentForm.get('age')?.touched && studentForm.get('age')?.invalid">
+        <small *ngIf="studentForm.get('age')?.errors?.['required']">Age is required</small>
+        <small *ngIf="studentForm.get('age')?.errors?.['min']">Minimum age is 18</small>
+        <small *ngIf="studentForm.get('age')?.errors?.['max']">Maximum age is 60</small>
+      </div>
+    </div>
+
+    <!-- Gender -->
+    <div class="mb-3">
+      <label>Gender</label><br />
+      <input type="radio" formControlName="gender" value="Male" /> Male
+      <input type="radio" formControlName="gender" value="Female" class="ms-3" /> Female
+      <div class="text-danger" *ngIf="studentForm.get('gender')?.touched && studentForm.get('gender')?.invalid">
+        <small>Gender is required</small>
+      </div>
+    </div>
+
+    <!-- Course -->
+    <div class="mb-3">
+      <label>Course</label>
+      <select class="form-control" formControlName="course">
+        <option value="">-- Select Course --</option>
+        <option value="B.Sc">B.Sc</option>
+        <option value="B.Com">B.Com</option>
+        <option value="B.A">B.A</option>
+        <option value="B.Tech">B.Tech</option>
+      </select>
+      <div class="text-danger" *ngIf="studentForm.get('course')?.touched && studentForm.get('course')?.invalid">
+        <small>Course selection is required</small>
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="mb-3">
+      <label>Password</label>
+      <input type="password" class="form-control" formControlName="password" />
+      <div class="text-danger" *ngIf="studentForm.get('password')?.touched && studentForm.get('password')?.invalid">
+        <small *ngIf="studentForm.get('password')?.errors?.['required']">Password is required</small>
+        <small *ngIf="studentForm.get('password')?.errors?.['minlength']">At least 6 characters</small>
+      </div>
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="mb-3">
+      <label>Confirm Password</label>
+      <input type="password" class="form-control" formControlName="confirmPassword" />
+      <div class="text-danger" *ngIf="studentForm.errors?.['mismatch'] && studentForm.get('confirmPassword')?.touched">
+        <small>Passwords do not match</small>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" class="btn btn-primary w-100" [disabled]="studentForm.invalid">
+      Register Student
+    </button>
+  </form>
+</div>

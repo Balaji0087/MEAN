@@ -1,0 +1,16 @@
+<h2>Parent Component</h2>
+
+<!-- Text box to type child response -->
+<input type="text" [(ngModel)]="msg" placeholder="Enter response" />
+
+<!-- Send data to parent on button click -->
+<button (click)="sendtoChild()">Send to child</button>
+
+<!-- Display child response -->
+<p><strong>Child says:</strong> {{ childmsg }}</p>
+<!-- Input to child -->
+<app-children
+  [fromparentmsg]="messagetochild"
+  (sendchildmsg)="onChildResponse($event)">
+</app-children>
+

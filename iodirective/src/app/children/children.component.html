@@ -1,0 +1,10 @@
+<h2>Child Component</h2>
+
+<!-- Display message from parent -->
+<p><strong>Message from Parent:</strong> {{ fromparentmsg }}</p>
+
+<!-- Text box to type child response -->
+<input type="text" [(ngModel)]="childInput" placeholder="Enter response" />
+
+<!-- Send data to parent on button click -->
+<button (click)="sendtoParent()">Send</button>

@@ -1,0 +1,69 @@
+<div [formGroup]="form" class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Dynamic Form Table</h4>
+    
+  </div>
+
+  <div formArrayName="items" class="table-responsive">
+    <table class="table table-bordered table-striped align-middle text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let item of items.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter name"
+              formControlName="name"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Enter age"
+              formControlName="age"
+            />
+          </td>
+          <td class="text-center px-4 py-2 justify-content-between">
+  <button type="button" class="btn btn-danger" (click)="deleteItem(i)">
+    Delete
+  </button>
+</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="bg-light p-3 mt-3  border rounded">
+    {{ form.value | json }}
+  </p>
+
+  <div class="text-center mt-3 justify-content-between d-flex ">
+    <button
+      type="button"
+      class="btn btn-secondary mx-1"
+      (click)="form.reset()"
+    >
+      Reset
+    </button>
+
+    
+  <button class="btn btn-primary mx-1" (click)="addItem()">Add Row</button>
+    <button type="button" class="btn btn-success px-4 mx-1" (click)="submit()">
+      Submit
+    </button>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
