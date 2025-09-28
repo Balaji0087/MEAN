@@ -1,0 +1,45 @@
+<div class="container mt-4">
+  <h2>Student List</h2>
+  <button class="btn btn-primary mb-3" (click)="openAdd()">
+    Add Student
+  </button>
+  <button (click)="loadStudents()" class="btn btn-primary mb-3 ">refresh</button>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Course</th>
+        <th>Age</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of students">
+        <td>{{ student.name }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.course }}</td>
+        <td>{{ student.age }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm" (click)="openEdit(student)">Edit</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteStudent(student._id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Student Form Modal -->
+<div class="modal fade" id="studentModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ editingStudent ? 'Edit Student' : 'Add Student' }}</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <app-studform [student]="editingStudent" (formSubmit)="onFormSubmit($event)"></app-studform>
+      </div>
+    </div>
+  </div>
+</div>
